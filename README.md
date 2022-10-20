@@ -1,7 +1,7 @@
 # Dracula's Library
 A J.D.K. Project
 ## Description
-### An online bookstore that sells scary and horror books of different catagories and genres in the spirit of Halloween.
+### An online bookstore that sales horror books of different catagories and genres.
 ## 1. MVPS
   - User Can Browse Book Library
   - User Can add Books to Cart
