@@ -3,8 +3,8 @@ A J.D.K. Project
 ## Description
 An online bookstore that sells scary and horror books of different catagories and genres in the spirit of Halloween.
 ## MVPS
-*User Can Browse Book Library
-**User Can add Books to Cart
+### - User Can Browse Book Library
+-User Can add Books to Cart
 User Can Purchase Books
 User is emailed a reciept
 ## Stretch Goals
