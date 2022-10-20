@@ -14,6 +14,6 @@ A J.D.K. Project
   - Front End Hosted On Web
 ## 3. Documents
   ### Team Brain Storming Document
-   -> https://1drv.ms/w/s!Ak2I3mlKjY_ZlLdfKC0lKW5wu3_tdA?e=D0nDlp
+   > https://1drv.ms/w/s!Ak2I3mlKjY_ZlLdfKC0lKW5wu3_tdA?e=D0nDlp
   ### p2 Requirements and Guidelines
-   -> https://1drv.ms/w/s!Ak2I3mlKjY_ZlLdhtFbhn_x5ESG0Iw?e=AIYt22
+   > https://1drv.ms/w/s!Ak2I3mlKjY_ZlLdhtFbhn_x5ESG0Iw?e=AIYt22
