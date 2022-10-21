@@ -1,7 +1,7 @@
 # Dracula's Library
 A J.D.K. Project
 ## Description
-An online bookstore that sales horror books of different catagories and genres.
+Dracula's Library is a full-stack, e-commerce web application. The application provides functionality for users to browse horror books online, add books to their shopping cart, and checkout.
 ## 1. MVPS
   - User Can Browse Book Library
   - User Can add Books to Cart
