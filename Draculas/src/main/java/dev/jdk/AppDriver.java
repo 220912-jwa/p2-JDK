@@ -31,10 +31,10 @@ public class AppDriver {
         //GET
         app.get("/get/book/all", bookController.getAllBooksRequest);
         app.get("/get/book/{bookId}", bookController.getBookByIdRequest);
-        app.get("/get/book/all/author", bookController.getAllBooksByAuthorRequest);
-        app.get("/get/book/all/{audience}", bookController.getAllBooksByAudienceRequest);
-        app.get("/get/book/all/{genre}", bookController.getAllBooksByGenreRequest);
-        app.get("/get/book/all/{searchKeywords}", bookController.getAllBooksBySearchRequest);
+        app.get("/get/book/author/{author}", bookController.getAllBooksByAuthorRequest);
+        app.get("/get/book/audience/{audience}", bookController.getAllBooksByAudienceRequest);
+        app.get("/get/book/genre/{genre}", bookController.getAllBooksByGenreRequest);
+        app.get("/get/book/searchKeywords/{searchKeywords}", bookController.getAllBooksBySearchRequest);
         app.get("/get/book/all/bestSeller", bookController.getAllBooksByBestSellerRequest);
     }
 

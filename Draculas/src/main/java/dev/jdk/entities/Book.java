@@ -25,6 +25,7 @@ public class Book {
         this.bestSeller = bestSeller;
         this.imagePath = imagePath;
     }
+    public Book(String author) {this.author = author;}
 
     public int getBookId() {
         return bookId;

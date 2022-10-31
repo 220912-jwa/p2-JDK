@@ -42,7 +42,7 @@ public class BookController
     };
     public Handler getAllBooksByAuthorRequest = ctx ->
     {
-        String author = "Marry Shelley";
+        String author = ctx.pathParam("author");
         List<Book> bookList = bookService.getAllBooksByAuthor(author);
         if(bookList != null)
         {
