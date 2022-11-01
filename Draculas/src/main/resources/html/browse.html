@@ -3,154 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    <div id ="debug links div">
-        <h3>Debug Links</h3>
-        <table>
-            <td>
-                <a onclick="getAllBooks()" href = "#">Get All Books</a>
-        
-            <td>
-                <p>| |</p>
-            </td>
-            <td>
-                <a onclick="getAllBooksByAuthor()" href = "#">Get All Books By Author</a>
+    <nav class = "navbar"> 
+        <div class = "container-fluid">
+                    <a class = "nav-link" href="#">Home</a>
 
-            </td>
-            <td>
-                <p>| |</p>
-            </td>
-            <td>
-                <a onclick="getAllBooksByAudience()" href = "#">Get All Books By Audience</a>
+                    <a class = "nav-link" href="#">Browse</a>
 
-            </td>
-            <td>
-                <p>| |</p>
-            </td>
-            <td>
-                <a onclick="getAllBooksByGenre()" href = "#">Get All Books By Genre</a>
-            </td>
-            <td>
-                <p>| |</p>
-            </td>
-            <td>
-                <a onclick="getBookById()" href = "#">Get Book By Id</a>
+                    <a class = "nav-link" href="#">Cart</a>
 
-            </td>
-            <td>
-                <p>| |</p>
-            </td>
-            <td>
-                <a onclick="getAllBooksBySearchKeywords()" href = "#">Get All Books By Search Keywords</a>
-            </td>
-            <td>
-                <a onclick="getAllBooksByBestSeller()" href = "#">Get All Books By Best Seller</a>
+                    <a class = "nav-link" href="#">Checkout</a>
+        </div>
+    </nav>
+    <div class = >
+        <div class = "row justify-content-center" id = "debug section div">
+            <div class = "col-auto" id ="debug links div">
 
-            </td>
-            <td>
-                <p>| |</p>
-            </td>
-        </table>
-    </div>
-    <div id = "debug selections div">
-        <table>
-            <tbody>
-                <tr>
-                    <th>Author Selection</th>
-                    <th>Audience Selection</th>
-                    <th>Genre Selection</th>
-                    <th>ID input</th>
-                    <th>Search Input</th>
-                </tr>
-                <br>
-                <tr>
+                <table class = "table table-responsive">
+
+                    <tr>
                     <td>
-                        <select name="author" id="select 1">
-                            <option>A. Lee Martinez</option>    
-                            <option>Anne Rice</option>         
-                            <option>Anne Bishop</option>         
-                            <option>Anne Rice</option>           
-                            <option>Bram Stoker</option>         
-                            <option>Bret Easton Ellis</option>   
-                            <option>Caitlin Starling</option>    
-                            <option>Cherie Priest</option>       
-                            <option>Cormac McCarthy</option>     
-                            <option>Dan Simmons</option>         
-                            <option>David Wong</option>         
-                            <option>Diana Rowland</option>      
-                            <option>Elanor Gill</option>         
-                            <option>Emma Laybourne</option>      
-                            <option>Erin Bowman</option>         
-                            <option>ETA Hoffman</option>         
-                            <option>George R.R. Martin</option>  
-                            <option>Gertrude Barrows</option>    
-                            <option>Glen Cook</option>           
-                            <option>H.P. Lovecraft</option>     
-                            <option>Ire Levin</option>          
-                            <option>Jack Ketchum</option>       
-                            <option>Justin Cronin</option>      
-                            <option>Laura Purcell</option>       
-                            <option>Lish McBride</option>       
-                            <option>Marry Shelley</option>      
-                            <option>Max Brooks</option>          
-                            <option>Mira Grant</option>          
-                            <option>Paul Tremblay</option>      
-                            <option>Peter Watts</option>         
-                            <option>rd </option>                 
-                            <option>Richard Matheson</option>   
-                            <option>Riley Sager</option>        
-                            <option>Robert Bloch</option>       
-                            <option>Robert McCammon</option>   
-                            <option>Sara Gran</option>          
-                            <option>Scott Sigler</option>      
-                            <option>hirley Jackson</option>   
-                            <option>Stephen King</option>      
-                            <option>Susan Hill</option>        
-                            <option>Tananarive Due</option>  
-                            <option>Thomas Harris</option>  
-                            <option>Thomas Ligotti</option>  
-                            <option>Victoe Lavelle</option>   
-                            <option>Whitley Strieber</option>
-                            <option>William Peter Blatty</option>
-                        </select>
+                        <a onclick="getAllBooks()" href = "#">Get All Books</a>
+                
+                    <td>
+                        <p>| |</p>
                     </td>
                     <td>
-                        <select name="audience" id="select 2">
-                            <option>Adults</option> 
-                            <option>Kids</option> 
-                            <option>Teens</option> 
-                            <option>Young Adults</option> 
-                        </select>
+                        <a onclick="getAllBooksByAuthor()" href = "#">Get All Books By Author</a>
+
                     </td>
                     <td>
-                        <select name="genre" id="select 3">
-                            <option>Comedy</option>          
-                            <option>Dark Fantasy</option>    
-                            <option>Gothic</option>             
-                            <option>Lovecraftian</option>    
-                            <option>Paranormal</option>      
-                            <option>Post-Apocalyptic</option>
-                            <option>Post Apocayptic</option> 
-                            <option>Psychological</option>   
-                            <option>Pyschological</option>   
-                            <option>Sci-Fi</option>          
-                            <option>Slasher</option>         
-                            <option>Supernatural</option>    
-                        </select>
+                        <p>| |</p>
                     </td>
                     <td>
-                    <input name = "book id input" id = "input 1" type = "number"/>
+                        <a onclick="getAllBooksByAudience()" href = "#">Get All Books By Audience</a>
+
                     </td>
                     <td>
-                    <input name = "search keyword input" id = "input 2" type = "text"/>
+                        <p>| |</p>
+                    </td>
+                    <td>
+                        <a onclick="getAllBooksByGenre()" href = "#">Get All Books By Genre</a>
+                    </td>
+                    <td>
+                        <p>| |</p>
+                    </td>
+                    <td>
+                        <a onclick="getBookById()" href = "#">Get Book By Id</a>
+
+                    </td>
+                    <td>
+                        <p>| |</p>
+                    </td>
+                    <td>
+                        <a onclick="getAllBooksBySearchKeywords()" href = "#">Get All Books By Search Keywords</a>
+                    </td>
+                    <td>
+                        <p>| |</p>
+                    </td>
+                    <td>
+                        <a onclick="getAllBooksByBestSeller()" href = "#">Get All Books By Best Seller</a>
+
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
 
+                </table>
+            </div>
+            <div class = "col-auto"id = "debug selections div">
+                <table class = "table table-responsive">
+                    <tbody>
+                        <tr>
+                            <th>Author Selection</th>
+                            <th>Audience Selection</th>
+                            <th>Genre Selection</th>
+                            <th>ID input</th>
+                            <th>Search Input</th>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td>
+                                <select name="author" id="select 1">
+                                    <option>A. Lee Martinez</option>    
+                                    <option>Anne Rice</option>         
+                                    <option>Anne Bishop</option>         
+                                    <option>Anne Rice</option>           
+                                    <option>Bram Stoker</option>         
+                                    <option>Bret Easton Ellis</option>   
+                                    <option>Caitlin Starling</option>    
+                                    <option>Cherie Priest</option>       
+                                    <option>Cormac McCarthy</option>     
+                                    <option>Dan Simmons</option>         
+                                    <option>David Wong</option>         
+                                    <option>Diana Rowland</option>      
+                                    <option>Elanor Gill</option>         
+                                    <option>Emma Laybourne</option>      
+                                    <option>Erin Bowman</option>         
+                                    <option>ETA Hoffman</option>         
+                                    <option>George R.R. Martin</option>  
+                                    <option>Gertrude Barrows</option>    
+                                    <option>Glen Cook</option>           
+                                    <option>H.P. Lovecraft</option>     
+                                    <option>Ire Levin</option>          
+                                    <option>Jack Ketchum</option>       
+                                    <option>Justin Cronin</option>      
+                                    <option>Laura Purcell</option>       
+                                    <option>Lish McBride</option>       
+                                    <option>Marry Shelley</option>      
+                                    <option>Max Brooks</option>          
+                                    <option>Mira Grant</option>          
+                                    <option>Paul Tremblay</option>      
+                                    <option>Peter Watts</option>         
+                                    <option>rd </option>                 
+                                    <option>Richard Matheson</option>   
+                                    <option>Riley Sager</option>        
+                                    <option>Robert Bloch</option>       
+                                    <option>Robert McCammon</option>   
+                                    <option>Sara Gran</option>          
+                                    <option>Scott Sigler</option>      
+                                    <option>hirley Jackson</option>   
+                                    <option>Stephen King</option>      
+                                    <option>Susan Hill</option>        
+                                    <option>Tananarive Due</option>  
+                                    <option>Thomas Harris</option>  
+                                    <option>Thomas Ligotti</option>  
+                                    <option>Victoe Lavelle</option>   
+                                    <option>Whitley Strieber</option>
+                                    <option>William Peter Blatty</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="audience" id="select 2">
+                                    <option>Adults</option> 
+                                    <option>Kids</option> 
+                                    <option>Teens</option> 
+                                    <option>Young Adults</option> 
+                                </select>
+                            </td>
+                            <td>
+                                <select name="genre" id="select 3">
+                                    <option>Comedy</option>          
+                                    <option>Dark Fantasy</option>    
+                                    <option>Gothic</option>             
+                                    <option>Lovecraftian</option>    
+                                    <option>Paranormal</option>      
+                                    <option>Post-Apocalyptic</option>
+                                    <option>Post Apocayptic</option> 
+                                    <option>Psychological</option>   
+                                    <option>Pyschological</option>   
+                                    <option>Sci-Fi</option>          
+                                    <option>Slasher</option>         
+                                    <option>Supernatural</option>    
+                                </select>
+                            </td>
+                            <td>
+                            <input name = "book id input" id = "input 1" type = "number"/>
+                            </td>
+                            <td>
+                            <input name = "search keyword input" id = "input 2" type = "text"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class = "row justify-content-center">
+            <div class = "col-auto">
+                <table class = "table table-responsive" id = "book shelf">
+                </table>
+            </div>
+        </div>
+    </div>
 
     <script src="js/browseScript.js"></script>
+    <script>
+        window.onload = getAllBooks();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
