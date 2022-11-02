@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body onload="loadCart()">
+
+<a href="./browse.html">Back to Browse</a>
+
+<br>
+<h1>Cart</h1>
+<br>
+<table class="tablclass" id="books"  border="1" >
+    <thead>
+    <th> ID </th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Cost</th>
+    <th></th>
+    </thead>
+    <tbody id="booksBody">
+    </tbody>
+</table>
+
+<br>
+<br>
+
+<button id="purchase" type="button" onclick="purchase()">Purchase</button>
+
+<script src="js/showCartScript.js"></script>
+</body>
+</html>
