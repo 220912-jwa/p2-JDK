@@ -1,6 +1,7 @@
 var cart= [];
 var cardRow;
 var buyNowCart = [];
+var totalPrice;
 async function getAllBooks()
 {
     let requestURL = "http://localhost:8080/get/book/all"
@@ -310,11 +311,11 @@ function createCardTable(element)
         cardText.innerHTML = element.genre;
         cardBody.append(cardText);
         let cardButton1 = document.createElement("a");
-        cardButton1.href = "#";
+        cardButton1.href = "payment.html";
         cardButton1.id = element.bookId;
         cardButton1.className = "btn btn-primary";
         cardButton1.innerHTML = "Buy Now";
-        cardButton1.addEventListener("click", function(){buyNow(cardButton1.id)})
+        cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
         cardBody.append(cardButton1)
         let cardButton2 = document.createElement("a");
         cardButton2.href = "#";
@@ -323,7 +324,7 @@ function createCardTable(element)
         cardButton2.className = "btn btn-primary float-end";
         cardButton2.name= element.bookId;
         cardButton2.innerHTML = "Add to Cart";
-        cardButton2.addEventListener("click", function(){addToCart(this.event)})
+        cardButton2.addEventListener("click", function(){addToCart(EventTarget)})
         cardBody.append(cardButton2)
    
         
@@ -344,25 +345,171 @@ function deleteCardTable()
 }
 
 
-function addToCart(event)
+function addToCart(EventTarget)
 {
-    console.log(event)
-    cart.push({bookId: id})
-    sessionStorage.setItem("cart",JSON.stringify(cart))  
+    let id = event.target.id
+    console.log(event.target.id)
+    cart.push({bookId: event.target.id})
+    sessionStorage.setItem("cart",JSON.stringify(cart));
     console.log(sessionStorage.cart);
-    cartJSON = JSON.parse(sessionStorage.cart);
+    let cartJSON = JSON.parse(sessionStorage.cart);
     console.log(cartJSON);
-    let cardButton2 = document.getElementsByName(id) 
-    cardButton2.className = "btn btn-secondary btn-lg disabled"
+    let cardButton2 = event.target;
+    cardButton2.className = "btn btn-success float-end"
+    cardButton2.innerHTML = "View Cart"
+    cardButton2.id = "this"
+    cardButton2.replaceWith(cardButton2.cloneNode(true))
+    cardButton2 = document.getElementById("this");
+    cardButton2.href = "cart.html"
+
     console.log(cartJSON[0].bookId)
 }
 
-function buyNow(event)
+function buyNow(EventTarget)
 {
-    console.log(id)
-    buyNowCart.push({bookId: id})
+    console.log(event.target.id)
+    buyNowCart.push({bookId: event.target.id})
     sessionStorage.setItem("buyNowCart",JSON.stringify(buyNowCart))  
     console.log(sessionStorage.buyNowCart);
-    cartJSON = JSON.parse(sessionStorage.cart);
-    console.log(cartJSON);
+    buyNowCartJSON = JSON.parse(sessionStorage.buyNowCart);
+    console.log(buyNowCartJSON);
+}
+
+function doNothing()
+{
+    console.log("I did nothing");
+}
+
+async function getBooksById(bookId)
+{
+    let requestURL = "http://localhost:8080/get/book/" + bookId;
+    console.log(bookId);
+    let response = await fetch
+    (
+        requestURL,
+        {
+            method: "GET",
+            header: {"Content-Type": "application/json"},
+        }
+    );
+    // if fetch response = 200, navigate to landing.html
+    if(response.status === 200)
+    {
+        let bookList = await response.json();
+        console.log(bookList)
+        createCartTable(bookList);
+
+
+    }
+    // else if fetch response = 401, Send retry alert
+    else if (response.status === 404)
+    {
+        alert("SQL Query Error");
+
+    }
+    //else console log something went wrong
+    else
+    {
+        alert("You did something odd, please try to be even next time.");
+    }
+}
+
+function loadCart()
+{
+    let cartJSON = JSON.parse(sessionStorage.cart);
+    cartJSON.forEach(element => {getBooksById(element.bookId)});
+
+}
+
+function createCartTable(element)
+{
+    totalPrice = totalPrice + element.price
+    let totalPriceDisplay = document.getElementById("total price")
+    totalPriceDisplay.innerHTML = totalPrice
+    const cardTable = document.getElementById("book shelf");
+    {
+        if(cardTable.childElementCount === 0)
+        {   
+            cardRow = document.createElement("tr");
+            cardTable.appendChild(cardRow);
+            
+        
+        }
+        let cardElement = document.createElement("td");
+        cardElement.id = element.indexOf({bookId: element.bookId})
+        cardRow.append(cardElement);
+        let cardDiv = document.createElement("div");
+        cardElement.append(cardDiv)
+        let card = document.createElement("div");
+        card.class = "card";
+        card.style = "width: 18rem";
+        card.id = element.bookId
+        cardDiv.append(card);
+        let cardImage = document.createElement("img");
+        cardImage.class = "card-img-top";
+        cardImage.src = element.imagePath;
+        cardImage.alt = element.title;
+        cardImage.style = "width: 18rem; height: 200px"
+        card.append(cardImage);
+        let cardBody = document.createElement("div");
+        cardBody.class = "card-body";
+        card.append(cardBody);
+        let cardTitle =  document.createElement("h5");
+        cardTitle.class = "card-title";
+        cardTitle.innerHTML = element.title;
+        cardBody.append(cardTitle)
+        let cardSubTitle1 = document.createElement("h6");
+        cardSubTitle1.class = "card-subtitle";
+        cardSubTitle1.innerHTML = element.author;
+        cardBody.append(cardSubTitle1);
+        let cardSubTitle2 = document.createElement("h7");
+        cardSubTitle2.class = "card-subtitle";
+        cardSubTitle2.innerHTML = "$"+element.price;
+        cardBody.append(cardSubTitle2);
+        let cardText = document.createElement("p");
+        cardText.class = "card-text";
+        cardText.innerHTML = element.genre;
+        cardBody.append(cardText);
+        let cardButton1 = document.createElement("a");
+        cardButton1.href = "payment.html";
+        cardButton1.id = element.bookId;
+        cardButton1.className = "btn btn-primary";
+        cardButton1.innerHTML = "Buy Now";
+        cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
+        cardBody.append(cardButton1)
+        let cardButton2 = document.createElement("a");
+        cardButton2.href = "#";
+        cardButton2.id = element.bookId;
+        let id = cardButton2.id;
+        cardButton2.className = "btn btn-primary float-end";
+        cardButton2.name= element.bookId;
+        cardButton2.innerHTML = "Remove From Cart";
+        cardButton2.addEventListener("click", function(){addToCart(EventTarget)})
+        cardBody.append(cardButton2)
+   
+        
+
+        if(cardRow.childElementCount === 4)
+        {
+        cardRow = document.createElement("tr");
+        cardTable.append(cardRow);
+        }
+
+    }
+}
+
+function removeFromCart(EventTarget)
+{
+
+    let removeButton = event.target;
+    let cardBody = removeButton.parentElement;
+    let card = cardBody.parentElement;
+    let cardDiv = card.parentElement;
+    let cardElement =  cardDiv.parentElement;
+    let removedIndex = cardElement.id;
+    cart.splice(removedIndex, 1)
+    sessionStorage.setItem("cart",JSON.stringify(cart));
+    console.log(sessionStorage.cart);
+    deleteCardTable();
+    loadCart();
 }
