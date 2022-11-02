@@ -300,9 +300,11 @@ function createCardTable(element)
         let cardTitle =  document.createElement("h5");
         cardTitle.class = "card-title";
         cardTitle.innerHTML = element.title;
+        cardTitle.id = element.title
         cardBody.append(cardTitle)
         let cardSubTitle1 = document.createElement("h6");
         cardSubTitle1.class = "card-subtitle";
+        cardSubTitle1.id = "Bram";
         cardSubTitle1.innerHTML = element.author;
         cardBody.append(cardSubTitle1);
         let cardSubTitle2 = document.createElement("h7");
@@ -312,6 +314,7 @@ function createCardTable(element)
         let cardText = document.createElement("p");
         cardText.class = "card-text";
         cardText.innerHTML = element.genre;
+        cardText.id = element.genre
         cardBody.append(cardText);
         let cardButton1 = document.createElement("a");
         cardButton1.href = "payment.html";

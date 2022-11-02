@@ -1,7 +1,7 @@
 var cart= [];
 var cardRow;
 var buyNowCart = [];
-var totalPrice;
+var totalPrice = 0.0;
 async function getAllBooks()
 {
     let requestURL = "http://localhost:8080/get/book/all"
@@ -21,6 +21,8 @@ async function getAllBooks()
         console.log(bookList)
         deleteCardTable();
         bookList.forEach(element => {createCardTable(element)}); 
+        cart = JSON.parse(sessionStorage.cart)
+        cart.forEach(element => {configureCart(element)});
     }
     // else if fetch response = 401, Send retry alert
     else if (response.status === 404)
@@ -279,11 +281,12 @@ function createCardTable(element)
         let cardElement = document.createElement("td");
         cardRow.append(cardElement);
         let cardDiv = document.createElement("div");
+        cardDiv.class = "bg-dark"
         cardElement.append(cardDiv)
         let card = document.createElement("div");
         card.class = "card";
         card.style = "width: 18rem";
-        card.id = element.bookId
+        //card.id = element.bookId
         cardDiv.append(card);
         let cardImage = document.createElement("img");
         cardImage.class = "card-img-top";
@@ -297,9 +300,11 @@ function createCardTable(element)
         let cardTitle =  document.createElement("h5");
         cardTitle.class = "card-title";
         cardTitle.innerHTML = element.title;
+        cardTitle.id = element.title
         cardBody.append(cardTitle)
         let cardSubTitle1 = document.createElement("h6");
         cardSubTitle1.class = "card-subtitle";
+        cardSubTitle1.id = "Bram";
         cardSubTitle1.innerHTML = element.author;
         cardBody.append(cardSubTitle1);
         let cardSubTitle2 = document.createElement("h7");
@@ -309,10 +314,11 @@ function createCardTable(element)
         let cardText = document.createElement("p");
         cardText.class = "card-text";
         cardText.innerHTML = element.genre;
+        cardText.id = element.genre
         cardBody.append(cardText);
         let cardButton1 = document.createElement("a");
         cardButton1.href = "payment.html";
-        cardButton1.id = element.bookId;
+       // cardButton1.id = element.bookId;
         cardButton1.className = "btn btn-primary";
         cardButton1.innerHTML = "Buy Now";
         cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
@@ -356,11 +362,10 @@ function addToCart(EventTarget)
     console.log(cartJSON);
     let cardButton2 = event.target;
     cardButton2.className = "btn btn-success float-end"
-    cardButton2.innerHTML = "View Cart"
-    cardButton2.id = "this"
+    cardButton2.innerHTML = "Success"
     cardButton2.replaceWith(cardButton2.cloneNode(true))
-    cardButton2 = document.getElementById("this");
-    cardButton2.href = "cart.html"
+    cardButton2 = document.getElementsByName(event.target.id);
+    setCartCount();
 
     console.log(cartJSON[0].bookId)
 }
@@ -380,7 +385,7 @@ function doNothing()
     console.log("I did nothing");
 }
 
-async function getBooksById(bookId)
+async function getBooksById(bookId, index)
 {
     let requestURL = "http://localhost:8080/get/book/" + bookId;
     console.log(bookId);
@@ -397,7 +402,7 @@ async function getBooksById(bookId)
     {
         let bookList = await response.json();
         console.log(bookList)
-        createCartTable(bookList);
+        createCartTable(bookList, index);
 
 
     }
@@ -417,33 +422,35 @@ async function getBooksById(bookId)
 function loadCart()
 {
     let cartJSON = JSON.parse(sessionStorage.cart);
-    cartJSON.forEach(element => {getBooksById(element.bookId)});
+    cartJSON.forEach((element, index) => {getBooksById(element.bookId, index)});
+    cart = JSON.parse(sessionStorage.cart);
+    setCartCount();
 
 }
 
-function createCartTable(element)
+function createCartTable(element, index)
 {
-    totalPrice = totalPrice + element.price
+    totalPrice += element.price
     let totalPriceDisplay = document.getElementById("total price")
-    totalPriceDisplay.innerHTML = totalPrice
+    totalPriceDisplay.innerHTML = "$"+totalPrice.toFixed(2)
     const cardTable = document.getElementById("book shelf");
     {
         if(cardTable.childElementCount === 0)
         {   
             cardRow = document.createElement("tr");
             cardTable.appendChild(cardRow);
-            
         
         }
         let cardElement = document.createElement("td");
-        cardElement.id = element.indexOf({bookId: element.bookId})
+        cardElement.id = index
+        console.log(cardElement.id)
         cardRow.append(cardElement);
         let cardDiv = document.createElement("div");
         cardElement.append(cardDiv)
         let card = document.createElement("div");
         card.class = "card";
         card.style = "width: 18rem";
-        card.id = element.bookId
+      //  card.id = element.bookId
         cardDiv.append(card);
         let cardImage = document.createElement("img");
         cardImage.class = "card-img-top";
@@ -472,7 +479,7 @@ function createCartTable(element)
         cardBody.append(cardText);
         let cardButton1 = document.createElement("a");
         cardButton1.href = "payment.html";
-        cardButton1.id = element.bookId;
+       // cardButton1.id = element.bookId;
         cardButton1.className = "btn btn-primary";
         cardButton1.innerHTML = "Buy Now";
         cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
@@ -481,11 +488,11 @@ function createCartTable(element)
         cardButton2.href = "#";
         cardButton2.id = element.bookId;
         let id = cardButton2.id;
-        cardButton2.className = "btn btn-primary float-end";
+        cardButton2.className = "btn btn-danger float-end";
         cardButton2.name= element.bookId;
         cardButton2.innerHTML = "Remove From Cart";
-        cardButton2.addEventListener("click", function(){addToCart(EventTarget)})
-        cardBody.append(cardButton2)
+        cardButton2.addEventListener("click", function(){removeFromCart(EventTarget)});
+        cardBody.append(cardButton2);
    
         
 
@@ -511,5 +518,24 @@ function removeFromCart(EventTarget)
     sessionStorage.setItem("cart",JSON.stringify(cart));
     console.log(sessionStorage.cart);
     deleteCardTable();
+    totalPrice = 0.0;
     loadCart();
+}
+
+function configureCart(element)
+{
+    let cardButton2 = document.getElementById(element.bookId);
+    cardButton2.className = "btn btn-success float-end";
+    cardButton2.innerHTML = "Success";
+    cardButton2.replaceWith(cardButton2.cloneNode(true));
+    setCartCount();
+}
+
+function setCartCount()
+{
+    let cartCount = document.getElementById("pick me");
+    cart = JSON.parse(sessionStorage.cart);
+    cartItems = cart.length;
+    cartCount.innerHTML = "Cart ("+cartItems+")";
+
 }

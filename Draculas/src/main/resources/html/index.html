@@ -7,7 +7,7 @@
 </head>
 <body>
     <div >
-        <nav class = "navbar bg-dark text-white bg-opacity-"> 
+        <nav class = "navbar bg-dark text-white"> 
             <div class = "container-fluid">
                         <a class = "nav-link" href="index.html">Home</a>
 
@@ -26,13 +26,13 @@
 
                         <tr>
                         <td>
-                            <a onclick="getAllBooks()" href = "#">Get All Books</a>
+                            <a onclick="getAllBooks()" href = "#" id = >Get All Books</a>
                     
                         <td>
                             <p>| |</p>
                         </td>
                         <td>
-                            <a onclick="getAllBooksByAuthor()" href = "#">Get All Books By Author</a>
+                            <a onclick="getAllBooksByAuthor()" href = "#" >Get All Books By Author</a>
 
                         </td>
                         <td>
@@ -59,13 +59,13 @@
                             <p>| |</p>
                         </td>
                         <td>
-                            <a onclick="getAllBooksBySearchKeywords()" href = "#">Get All Books By Search Keywords</a>
+                            <a onclick="getAllBooksBySearchKeywords()" href = "#" >Get All Books By Search Keywords</a>
                         </td>
                         <td>
                             <p>| |</p>
                         </td>
                         <td>
-                            <a onclick="getAllBooksByBestSeller()" href = "#">Get All Books By Best Seller</a>
+                            <a onclick="getAllBooksByBestSeller()" href = "#" id =>Get All Books By Best Seller</a>
 
                         </td>
                     </tr>
@@ -85,7 +85,7 @@
                             <br>
                             <tr>
                                 <td>
-                                    <select name="author" id="select 1">
+                                    <select name="author" id="select 1" class = "Bram">
                                         <option>A. Lee Martinez</option>    
                                         <option>Anne Rice</option>         
                                         <option>Anne Bishop</option>         
@@ -135,7 +135,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="audience" id="select 2">
+                                    <select name="audience" id="select 2" class = "Adults">
                                         <option>Adults</option> 
                                         <option>Kids</option> 
                                         <option>Teens</option> 
@@ -143,7 +143,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="genre" id="select 3">
+                                    <select name="genre" id="select 3"  class ="Lovecraftian">
                                         <option>Comedy</option>          
                                         <option>Dark Fantasy</option>    
                                         <option>Gothic</option>             
@@ -159,10 +159,10 @@
                                     </select>
                                 </td>
                                 <td>
-                                <input name = "book id input" id = "input 1" type = "number"/>
+                                <input name = "book id input" id = "input 1" type = "number"  class="15"/>
                                 </td>
                                 <td>
-                                <input name = "search keyword input" id = "input 2" type = "text"/>
+                                <input name = "search keyword input" id = "input 2" type = "text" class = "frankenstein"/>
                                 </td>
                             </tr>
                         </tbody>
