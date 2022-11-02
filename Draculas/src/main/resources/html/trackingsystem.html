@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>Draculas tracking system</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse br-0">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Draculas</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Browse</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="#">Cart</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="trackingsystem.html">Tracking</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart </a></li>
+            </ul>
+        </div>
+    </nav>
+        <div class="container-fluid customsize">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+          
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="item active">
+                        <div class="form-group customposition">
+                            
+                            <div class="col-md-8 position-input d">
+                                <input class="form-control input-md custominput" id="textinput" name="textinput" placeholder="Tracking No" type="text">
+                                <button type="button" id="check" class="button-go" onclick="fetchrecords()" > <i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                  <img src="images/4.png" alt="Image 1" style="width:100%;opacity: 0.6;">
+                  
+                </div>
+          
+                <div class="item">
+                  <div class="form-group customposition">
+                            
+                            <div class="col-md-8 position-input d">
+                                <input class="form-control input-md custominput" id="textinput" name="textinput" placeholder="Tracking No" type="text">
+                                <button type="button" id="check" class="button-go" onclick="fetchrecords()" > <i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                  <img src="images/5.png" alt="Image 2" style="width:100%;opacity: 0.6;">
+                </div>
+              
+                <div class="item">
+                  <div class="form-group customposition">
+                            
+                    <div class="col-md-8 position-input d">
+                        <input class="form-control input-md custominput" id="textinput" name="textinput" placeholder="Tracking No" type="text">
+                        <button type="button" id="check" class="button-go" onclick="fetchrecords()" > <i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+                  <img src="images/6.png" alt="Image 3" style="width:100%;opacity: 0.6;">
+                </div> 
+              </div>
+          
+              <!-- Left and right controls -->
+              <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+          
+
+          <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title mx-auto fontcolor">Order Status<br></h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div class="progress-track">
+                      <ul id="progressbar">
+                          <li class="step0" id="step1">Order placed</li>
+                          <li class="step0 text-center" id="step2">In Transit</li>
+                          <li class="step0 text-right" id="step3">Out for Delivery</li>
+                          <li class="step0 text-right" id="step4">Delivered</li>
+                      </ul>
+                  </div>
+                  <div class="row">
+                    <div class="col-9">
+                      <div class="details d-table">
+                        <div class="d-table-row">
+                          <div class="d-table-cell fontcolor">
+                            Shipped with
+                          </div>
+                          <div class="d-table-cell fontcolor">
+                            UPS Expedited
+                          </div>
+                        </div>
+                        <div class="d-table-row">
+                          <div class="d-table-cell fontcolor">
+                            Estimated Delivery
+                          </div>
+                          <div class="d-table-cell fontcolor">
+                            Delivery withing Estimated time in Email
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>      
+                </div>                  
+            </div>
+          </div>
+          </div>
+          <script>
+            async function fetchrecords(){
+              let baseUrl="http://localhost:8080";
+              let trackingid=document.getElementById("textinput").value;
+              let res = await fetch(`${baseUrl}/gettrackingstatus/${trackingid}`);
+              if (res.status === 200) {
+                let resJson = await res.json();
+                var x = document.createElement("SPAN");
+                x.setAttribute("id","three")
+                if(resJson.status=="Order Placed"){
+                  $("#myModal").modal();
+                  let step1=document.getElementById("step1");
+                  step1.classList.add("active");
+                  x.innerText("Order placed");
+                  step1.append(x);
+                }else if(resJson.status=="In Transit"){
+                  $("#myModal").modal();
+                  let step1=document.getElementById("step1");
+                  step1.classList.add("active");
+                  let step2=document.getElementById("step2");
+                  step2.classList.add("active");
+                  x.innerText("In Transit");
+                  step2.append(x);
+                }else if(resJson.status=="Out for Delivery"){
+                  $("#myModal").modal();
+                  let step1=document.getElementById("step1");
+                  step1.classList.add("active");
+                  let step2=document.getElementById("step2");
+                  step2.classList.add("active");
+                  let step3=document.getElementById("step3");
+                  step3.classList.add("active");
+                  x.innerText("Out for Delivery");
+                  step3.append(x);
+                }else if(resJson.status=="Delivered"){
+                  $("#myModal").modal();
+                  let step1=document.getElementById("step1");
+                  step1.classList.add("active");
+                  let step2=document.getElementById("step2");
+                  step2.classList.add("active");
+                  let step3=document.getElementById("step3");
+                  step3.classList.add("active");
+                  let step4=document.getElementById("step4");
+                  step4.classList.add("active");
+                  x.innerText("Delivered");
+                  step4.append(x);
+                }else{
+                  alert("Tracking Details Not Found");
+                }
+                console.log(resJson);
+              } else {
+                    console.log("Something went wrong.");
+                }
+            }
+         
+
+          </script>
+    </body>
+</html>

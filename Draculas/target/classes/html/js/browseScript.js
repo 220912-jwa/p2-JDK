@@ -310,11 +310,10 @@ function createCardTable(element)
         cardText.innerHTML = element.genre;
         cardBody.append(cardText);
         let cardButton1 = document.createElement("a");
-        cardButton1.href = "#";
         cardButton1.id = element.bookId;
         cardButton1.className = "btn btn-primary";
         cardButton1.innerHTML = "Buy Now";
-        cardButton1.addEventListener("click", function(){buyNow(cardButton1.id)})
+        cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
         cardBody.append(cardButton1)
         let cardButton2 = document.createElement("a");
         cardButton2.href = "#";
@@ -323,7 +322,7 @@ function createCardTable(element)
         cardButton2.className = "btn btn-primary float-end";
         cardButton2.name= element.bookId;
         cardButton2.innerHTML = "Add to Cart";
-        cardButton2.addEventListener("click", function(){addToCart(this.event)})
+        cardButton2.addEventListener("click", function(){addToCart(EventTarget)})
         cardBody.append(cardButton2)
    
         
@@ -344,25 +343,65 @@ function deleteCardTable()
 }
 
 
-function addToCart(event)
+function addToCart(EventTarget)
 {
-    console.log(event)
-    cart.push({bookId: id})
+    let id = event.target.id
+    console.log(event.target.id)
+    cart.push({bookId: event.target.id})
     sessionStorage.setItem("cart",JSON.stringify(cart))  
     console.log(sessionStorage.cart);
     cartJSON = JSON.parse(sessionStorage.cart);
     console.log(cartJSON);
-    let cardButton2 = document.getElementsByName(id) 
-    cardButton2.className = "btn btn-secondary btn-lg disabled"
+    let cardButton2 = event.target;
+    cardButton2.className = "btn btn-success float-end"
+    cardButton2.innerHTML = "View Cart"
+    cardButton2.id = "this"
+    cardButton2.replaceWith(cardButton2.cloneNode(true))
+    cardButton2 = document.getElementById("this");
+    cardButton2.href = "cart.html"
+
     console.log(cartJSON[0].bookId)
 }
 
-function buyNow(event)
+async function buyNow(EventTarget)
 {
-    console.log(id)
-    buyNowCart.push({bookId: id})
+    console.log(event.target.id)
+    buyNowCart.push({bookId: event.target.id})
     sessionStorage.setItem("buyNowCart",JSON.stringify(buyNowCart))  
     console.log(sessionStorage.buyNowCart);
-    cartJSON = JSON.parse(sessionStorage.cart);
-    console.log(cartJSON);
+    buyNowCartJSON = JSON.parse(sessionStorage.buyNowCart);
+    console.log(buyNowCartJSON);
+    let baseUrl="http://localhost:8080";
+                 const bookids=[];
+                 bookids.push(parseInt(buyNowCart[0].bookId));
+                 orderdetails = {
+                    bookid:bookids
+                }
+                ordersJSON = JSON.stringify(orderdetails);
+
+                let res = await fetch(`${baseUrl}/createorder`,
+                    {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: ordersJSON
+                    }
+                )
+                if (res.status === 200) {
+                    let resJson = await res.json();
+                    document.location.assign("./payment.html");
+                    sessionStorage.setItem('orderid', resJson.orderid);
+                    console.log("order succeeded");
+                } else {
+                    console.log("order failed");
+                }
 }
+async function getorderdetails(){
+
+        }
+
+function doNothing()
+{
+    console.log("I did nothing");
+}
+
+
