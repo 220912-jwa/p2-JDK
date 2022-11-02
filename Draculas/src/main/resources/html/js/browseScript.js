@@ -321,7 +321,7 @@ function createCardTable(element)
        // cardButton1.id = element.bookId;
         cardButton1.className = "btn btn-primary";
         cardButton1.innerHTML = "Buy Now";
-        cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
+        cardButton1.addEventListener("click", function(){buyNow2(EventTarget)})
         cardBody.append(cardButton1)
         let cardButton2 = document.createElement("a");
         cardButton2.href = "#";
@@ -482,7 +482,7 @@ function createCartTable(element, index)
        // cardButton1.id = element.bookId;
         cardButton1.className = "btn btn-primary";
         cardButton1.innerHTML = "Buy Now";
-        cardButton1.addEventListener("click", function(){buyNow(EventTarget)})
+        cardButton1.addEventListener("click", function(){buyNow2(EventTarget)})
         cardBody.append(cardButton1)
         let cardButton2 = document.createElement("a");
         cardButton2.href = "#";
