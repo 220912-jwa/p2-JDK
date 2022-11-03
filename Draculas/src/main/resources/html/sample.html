@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <script>
+            async function getorderdetails(){
+             let baseUrl="http://localhost:8080";
+             const bookids=[];    
+            for(var i=13;i<15;i++){
+                bookids.push(i);
+            }
+             orderdetails = {
+                bookid:bookids
+            }
+           
+            ordersJSON = JSON.stringify(orderdetails);
+
+            let res = await fetch(`${baseUrl}/createorder`,
+                {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: ordersJSON
+                }
+            )
+            if (res.status === 200) {
+                let resJson = await res.json();
+                console.log(resJson);
+                console.log("order succeeded");
+            } else {
+                console.log("order failed");
+            }
+        }
+        </script>
+    </body>
+</html>

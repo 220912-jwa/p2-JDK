@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Update tracking Status</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="form-group">
+            <label for="trackingno">Tracking No:</label>
+            <input type="text" class="form-control" id="trackingno" required>
+          </div>
+          <select name="status" id="status">
+            <option>Select Option</option>
+            <option value="Order Placed">Order Placed</option>
+            <option value="In Transit">In Transit</option>
+            <option value="Out for Delivery">Out for Delivery</option>
+            <option value="Delivered">Delivered</option>
+          </select>
+          <input type="button" value="Update" onclick="UpdateStatus()">
+          <script>
+             async function UpdateStatus(){
+                let baseUrl="http://localhost:8080";
+               let trackingno=document.getElementById("trackingno").value;
+               let status=document.getElementById("status").value;
+               let trackinginfo = {
+                trackingno:trackingno,
+                status:status
+            }
+            trackingJSON = JSON.stringify(trackinginfo);
+
+            let res = await fetch(`${baseUrl}/updatetrackingstatus`,
+                {
+                    method: "PUT",
+                    headers: {"Content-Type": "application/json"},
+                    body: trackingJSON
+                }
+            )
+            if (res.status === 200) {
+                console.log("updated succesfully");
+                document.location.assign("./updatetrackingstatus.html");
+            } else {
+                console.log("update failed");
+                document.location.assign("./updatetrackingstatus.html");
+            }
+        }
+          </script>
+    </body>
+</html>

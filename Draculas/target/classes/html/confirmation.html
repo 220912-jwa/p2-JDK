@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>
+            Success
+        </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body onload="getorderdetails()">
+        <h1 class="confirmaton-page">Thank you for shopping with us</h1>
+        <br>
+        <h3 class="confirmaton-page">Kindly check your mail with tracking details.</h3>
+        <br>
+        <h5 class="confirmaton-page">* This page will automatically redirected in 10 seconds. *</h5>
+        <script>
+    window.setTimeout(function(){
+    window.location.href = "index.html";
+}, 10000);
+async function getorderdetails(){
+    let baseUrl="http://localhost:8080";
+    let orderid=parseInt(sessionStorage.getItem("orderid"));
+    let res = await fetch(`${baseUrl}/orderpaymentconfirmation/${orderid}`);
+    if (res.status === 200) {
+                    resJson = await res.json();
+                    console.log(resJson);
+                    if(resJson.payments.paymentstatus=='success'){
+                    let maildetails = {
+                        orderid:resJson.orderid,
+                        trackingno:resJson.trackingno,
+                        paymentstatus:resJson.paymentstatus,
+                            users:{
+                            emailid:resJson.users.emailid,
+                            name: resJson.users.name,
+                            contactno:resJson.users.contactno,
+                            city:resJson.users.city,
+                            state:resJson.users.state,
+                            country: resJson.users.country
+                            }
+                    }
+                    mailJSON = JSON.stringify(maildetails);
+
+                    let res = await fetch(`${baseUrl}/sendconfirmationmail`,
+                        {
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            body: mailJSON
+                        }
+                    )
+                    if (res.status === 200) {
+                        console.log("mail send");
+                        //document.location.assign("./confirmation.html");
+                    } else {
+                        console.log("mail Not send");
+                        //document.location.assign("./index.html");
+                    }
+                }else{
+                    alert("Error Occured. Try After Some Time");
+                }
+                }
+}
+        </script>
+    </body>
+</html>

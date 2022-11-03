@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Checkout
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body class="body" onload="getorderdetails()">
+        <nav class="navbar navbar-inverse br-0">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">Draculas</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+              </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Browse</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Cart</a></li>
+                </ul>
+              <ul class="nav navbar-nav">
+                <li><a href="trackingsystem.html">Tracking</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart </a></li>
+              </ul>
+            </div>
+          </nav>
+          <div class="container div1">
+            <div class="row contentdiv">
+                <div class="col-md-8 custom-border">
+                      
+                  <div class="row">
+                    <h3>Order Details</h3>
+                    <div id="dynamiccontent">
+                    
+                  </div>
+                  </div>
+                  
+                  <form>
+                  <div class="row">
+                    <h3>User Details</h3>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" required>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="city">City:</label>
+                        <input type="text" class="form-control" id="city" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="state">State:</label>
+                        <input type="text" class="form-control" id="state" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">          
+                          <div class="form-group">
+                            <label for="contactno">Contact No:</label>
+                            <input type="number" class="form-control" id="contactno" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="streetaddress">Street Address:</label>
+                            <input type="text" class="form-control" id="streetaddress" required>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="country">Country:</label>
+                            <input type="text" class="form-control" id="country" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="zipcode">Zip Code:</label>
+                            <input type="number" class="form-control" id="zipcode" required>
+                          </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <h3>Payment Details</h3>
+                        <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="cardnumber">Credit/Debit Card No:</label>
+                            <input type="number" class="form-control input-custom" oninput="Cardpics()" id="cardnumber" required>                         
+                          </div>
+                          <div class="form-group w-25">
+                            <label for="cvv">CVV:</label>
+                            <input type="number" class="form-control" id="cvv" onKeyPress="if(this.value.length==3) return false;" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group w-50">
+                            <label for="expirydate">Expiry Date:</label>
+                            <input type="date" class="form-control" id="expirydate" required>
+                          </div>
+                        </div>
+                  </div>
+                </div>             
+                <div class="col-md-4">
+                  <h3>Amount Details</h3>
+                  <div class="col-md-6  text-right">
+                  <h5><b>Price: </b></h5>
+                  <h5><b>Tax: </b></h5>
+                  <h5 class="custom-price-border"><b>Total Price: </b></h5>
+                  </div>
+                  <div class="col-md-6">
+                    <h5 id="price"></h5>
+                    <h5 id="tax"></h5>
+                    <h5 class="custom-price-border" id="totalprice"></h5>
+                  </div>
+                  <br>
+                  <div class="col-md-12 text-center">
+                  <input type="button" class="btn btn-info" onclick="orderconfirmation()" value="Proceed to Pay">
+                  <input type="button" class="btn" onclick="ordercancel()" value="Cancel">
+              </div>
+                </div>
+              </form>
+              </div>
+            </div>
+<script>
+  async function addElement(imagelink,name,description,price) {
+  // create a new div element
+  var contentlocation=document.getElementById("dynamiccontent");
+//First div
+  var maindiv=document.createElement("div");
+  maindiv.classList.add("row");
+
+  var newDiv1 = document.createElement("div");
+  newDiv1.classList.add("col-md-6","text-right","custom-margin");
+
+  var img=document.createElement('img');
+  img.src=imagelink;
+  img.height="100";
+  img.width="100";
+  
+//Second Div
+  var newDiv2 = document.createElement("div");
+  newDiv2.classList.add("col-md-6");
+
+  var h5name=document.createElement("h5");
+  var textNodeName = document.createTextNode(name);
+  
+
+  var h5description=document.createElement("h5");
+  var textNodeDescription = document.createTextNode(description);
+  
+
+  var h5price=document.createElement("h5");
+  var textNodeprice = document.createTextNode(price);
+
+  newDiv1.appendChild(img);
+  maindiv.appendChild(newDiv1);
+
+  h5name.appendChild(textNodeName);
+  h5description.appendChild(textNodeDescription);
+  h5price.appendChild(textNodeprice);
+
+  newDiv2.appendChild(h5name);
+  newDiv2.appendChild(h5description);
+  newDiv2.appendChild(h5price);
+  maindiv.appendChild(newDiv2);
+
+  contentlocation.appendChild(maindiv);
+}
+  function Cardpics(){
+    var input2=document.getElementById("cardnumber").value;
+    var field=document.getElementById("cardnumber");
+    const firstnum=String(input2).slice(0,4);
+    const firstfournum=Number(firstnum);
+    if(firstfournum>0000 && firstfournum<3500){
+      field.style.backgroundImage="url('images/icons/visacard.png')";
+    }else if(firstfournum>3500 && firstfournum<5100){
+      field.style.backgroundImage="url('images/icons/mastercard.png')";
+    }else if(firstfournum>5100 && firstfournum<7200){
+      field.style.backgroundImage="url('images/icons/discovercard.png')";
+    }else if(firstfournum>7200 && firstfournum<9999){
+      field.style.backgroundImage="url('images/icons/americanexpresscard.png')";
+    }
+  }
+  async function getorderdetails(){
+    let baseUrl="http://localhost:8080";
+    let orderid=parseInt(sessionStorage.getItem("orderid"));
+    let res = await fetch(`${baseUrl}/order/${orderid}`);
+    if (res.status === 200) {
+                    resJson = await res.json();
+                    console.log(resJson);
+                    var amount=0;
+                    for (var i=0; i < resJson.length;++i){
+                      addElement(resJson[i].books.imagePath,resJson[i].books.title,resJson[i].books.description
+                    ,resJson[i].books.price);
+                    amount+=resJson[i].books.price;
+                    }
+                    var pricevalue=document.getElementById("price");
+                    var taxvalue=document.getElementById("tax");
+                    var totalpricevalue=document.getElementById("totalprice");
+                    price=amount;
+                    tax=(amount*0.02);
+                    totalprice=price+tax;
+                    pricevalue.innerText=price.toFixed(2);
+                    taxvalue.innerText=tax.toFixed(2);
+                    totalpricevalue.innerText=totalprice.toFixed(2);
+                } else {
+                    console.log("Something went wrong.");
+                }
+
+  }
+  async function orderconfirmation(){
+    let baseUrl="http://localhost:8080";
+    let name=document.getElementById("name").value;
+    let emailid=document.getElementById("email").value;
+    let city=document.getElementById("city").value;
+    let state=document.getElementById("state").value;
+    let contactno=document.getElementById("contactno").value;
+    let streetaddress=document.getElementById("streetaddress").value;
+    let country=document.getElementById("country").value;
+    let zipcode=document.getElementById("zipcode").value;
+    let cardnumber=document.getElementById("cardnumber").value;
+    let cvv=document.getElementById("cvv").value;
+    let expirydate=document.getElementById("expirydate").value;
+    const users={emailid:emailid,
+                name: name,
+                contactno:contactno,
+                address:streetaddress,
+                city:city,
+                state:state,
+                country: country,
+                zipcode:zipcode}
+    const payments={
+      paymentmethod:'credit card'
+    }
+
+    let orderdetails = {
+                users,
+                payments,
+                orderid:parseInt(sessionStorage.getItem("orderid"))
+            }
+            ordersJSON = JSON.stringify(orderdetails);
+
+            let res = await fetch(`${baseUrl}/orderpaymentupdate`,
+                {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: ordersJSON
+                }
+            )
+            if (res.status === 200) {
+                console.log("order succeeded");
+                document.location.assign("./confirmation.html");
+            } else {
+                console.log("order failed");
+                document.location.assign("./index.html");
+            }
+  }
+  async function ordercancel(){
+    let baseUrl="http://localhost:8080";
+    let orderdetails = {
+      orderid:parseInt(sessionStorage.getItem("orderid"))
+            }
+            ordersJSON = JSON.stringify(orderdetails);
+
+            let res = await fetch(`${baseUrl}/ordercancel`,
+                {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: ordersJSON
+                }
+            )
+            if (res.status === 200) {
+                console.log("order cancelled");
+                document.location.assign("./index.html");
+            } else {
+                console.log("order cancellation failed");
+                document.location.assign("./index.html");
+            }
+  }
+</script>
+    </body>
+</html>
